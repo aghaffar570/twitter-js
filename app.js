@@ -2,6 +2,7 @@
 const express = require('express');
 const app = express();
 const nunjucks = require('nunjucks');
+const routes = require("./routes/index.js");
 
 // Misc
 let locals = {
@@ -24,20 +25,7 @@ app.engine("html", nunjucks.render);
 nunjucks.configure("views");
 
 // App Stuff
-app.use('/', (req, res, next) => {
-  console.log(req.method, req.url);
-  console.log(req);
-  next();
-})
-
-app.get('/', (req, res)=>{
-  res.render("index", locals);
-})
-
-app.get('/news', (req, res)=>{
-  res.send('hey');
-})
-
+app.use("/", routes);
 
 app.listen(3000, () => {
   console.log('serving listening');
